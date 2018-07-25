@@ -147,23 +147,23 @@ func main() {
 
 	var walBuffersValue int
 	// Follow auto-tuning guideline for wal_buffers added in 9.1, where it's
-    // set to 3% of shared_buffers up to a maximum of 16MB.
-    walBuffersValue = 3 * sharedBuffers / 100
-    maxWalBuffer := 16 * SIZE_UNIT_MAP["MB"] / SIZE_UNIT_MAP["KB"]
-    if (walBuffersValue > maxWalBuffer) {
-      walBuffersValue = maxWalBuffer
-    }
-    // It's nice of wal_buffers is an even 16MB if it's near that number. Since
-    // that is a common case on Windows, where shared_buffers is clipped to 512MB,
-    // round upwards in that situation
-    walBufferNearValue := 14 * SIZE_UNIT_MAP["MB"] / SIZE_UNIT_MAP["KB"]
-    if (walBuffersValue > walBufferNearValue && walBuffersValue < maxWalBuffer) {
-      walBuffersValue = maxWalBuffer
-    }
-    // if less, than 32 kb, than set it to minimum
-    if (walBuffersValue < 32) {
-      walBuffersValue = 32
-    } 
+	// set to 3% of shared_buffers up to a maximum of 16MB.
+	walBuffersValue = 3 * sharedBuffers / 100
+	maxWalBuffer := 16 * SIZE_UNIT_MAP["MB"] / SIZE_UNIT_MAP["KB"]
+	if (walBuffersValue > maxWalBuffer) {
+		walBuffersValue = maxWalBuffer
+	}
+	// It's nice of wal_buffers is an even 16MB if it's near that number. Since
+	// that is a common case on Windows, where shared_buffers is clipped to 512MB,
+	// round upwards in that situation
+	walBufferNearValue := 14 * SIZE_UNIT_MAP["MB"] / SIZE_UNIT_MAP["KB"]
+	if (walBuffersValue > walBufferNearValue && walBuffersValue < maxWalBuffer) {
+		walBuffersValue = maxWalBuffer
+	}
+	// if less, than 32 kb, than set it to minimum
+	if (walBuffersValue < 32) {
+		walBuffersValue = 32
+	}
 	fmt.Println("wal_buffers", "=", byteSize(walBuffersValue))
 
 	var defaultStatisticsTarget int
