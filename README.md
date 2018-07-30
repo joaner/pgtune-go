@@ -1,5 +1,7 @@
 # postgresql configure (fork from pgtune)
 
+tuning PostgreSQL config by your hardware
+
 > This is a copy and language rewrite, source code at https://github.com/le0pard/pgtune/blob/master/webpack/selectors/configuration.js
 
 ```bash
@@ -27,3 +29,31 @@ max_worker_processes = 8
 max_parallel_workers_per_gather = 4
 max_parallel_workers = 8
 ```
+
+## Usage
+
+```bash
+$ ./pgtune-go -h
+Usage of ./pgtune-go:
+  -connectionNum int
+    	Maximum number of PostgreSQL client connections
+  -cpuNum int
+    	Number of CPUs, which PostgreSQL can use
+    	CPUs = threads per core * cores per socket * sockets
+  -dbType string
+    	For what type of application is PostgreSQL used (default "web")
+  -dbVersion string
+    	PostgreSQL version (find out via 'SELECT version();') (default "10")
+  -hdType string
+    	Type of data storage device (default "ssd")
+  -osType string
+    	Operation system of the PostgreSQL server host (default "linux")
+  -totalMemory int
+    	How much memory can PostgreSQL use
+  -totalMemoryUnit string
+    	memory unit (default "GB")
+```
+
+## LICENSE
+
+MIT License
